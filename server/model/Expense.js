@@ -6,7 +6,7 @@ mongoose.connect("mongodb://localhost/expensesDB")
 const expenseSchema = new Schema({
     name: String,
     amount: Number,
-    date: String,
+    date: Date,
     group: String
 })
 

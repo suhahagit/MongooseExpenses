@@ -5,9 +5,25 @@ const router = express.Router()
 const Expense = require('../model/Expense')
 
 router.get('/expenses', function (req, res) {
-    Expense.find({}).sort('-date').exec(function (err, expenses) {
-        res.send(expenses)
-    })
+    if (req.query.d1) {
+        console.log(req.query.d1)
+        if (req.query.d2) {
+            const start = moment(req.query.d1).format()
+            const end = moment(req.query.d2).format()
+            Expense.find({ "date": { "$gte": start, "$lt": end } }).sort('-date').exec(function (err, expenses) {
+                res.send(expenses)
+            })
+        } else {
+            const start = moment(req.query.d1).format()
+            Expense.find({ "date": { "$gte": start } }).sort('-date').exec(function (err, expenses) {
+                res.send(expenses)
+            })
+        }
+    } else {
+        Expense.find({}).sort('-date').exec(function (err, expenses) {
+            res.send(expenses)
+        })
+    }
 })
 
 router.post('/expense', function (req, res) {
