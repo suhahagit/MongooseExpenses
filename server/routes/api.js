@@ -6,7 +6,6 @@ const Expense = require('../model/Expense')
 
 router.get('/expenses', function (req, res) {
     if (req.query.d1) {
-        console.log(req.query.d1)
         if (req.query.d2) {
             const start = moment(req.query.d1).format()
             const end = moment(req.query.d2).format()
